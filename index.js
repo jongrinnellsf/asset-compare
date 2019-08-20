@@ -15,7 +15,7 @@ function displayStockResults(responseJson) {
     for (let i = 0; i < responseJson.data.length; i++){
         $('#stocks-results-list').append(
         `<li id= "${responseJson.data[i].symbol}"><h4>${responseJson.data[i].name} (${responseJson.data[i].symbol})</h4>
-        <p>Current price: ${responseJson.data[i].price} ${responseJson.data[i].currency}</p>
+        <p class="cp">Current price: ${responseJson.data[i].price} ${responseJson.data[i].currency}</p>
         </li>`)
     }
   $('#stocks').removeClass('hidden');
@@ -52,7 +52,7 @@ function displayCryptoResults(responseJson) {
     if (cryptoReturn.includes('-')) {
         $('#crypto-results-list').append(
         `<li id = "${symbol}"><h4>${responseJson.data.name} (${symbol})</h4>
-        <p> Current price: ${currentPrice} USD</p>
+        <p class="cp"> Current price: ${currentPrice} USD</p>
         <p class="loss">1 year return: <span id="${cryptoReturn}">${cryptoReturn}%</span></p>
         <button id="deleteAsset">
         <div class="button-label">Remove</div>
@@ -62,7 +62,7 @@ function displayCryptoResults(responseJson) {
     else { 
         $('#crypto-results-list').append(
         `<li id = "${symbol}"><h4>${responseJson.data.name} (${responseJson.data.symbol})</h4>
-        <p> Current price: ${currentPrice} USD</p>
+        <p class="cp"> Current price: ${currentPrice} USD</p>
         <p class="gain">1 year return: +<span id="${cryptoReturn}">${cryptoReturn}%</span></p>
         <button id="deleteAsset">
         <div class="button-label">Remove</div>

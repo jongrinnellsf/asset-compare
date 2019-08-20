@@ -18,8 +18,15 @@ button:hover {
     cursor: pointer;
 }
 
+img {
+    height: 20px;
+    width: 50px;
+    margin-right: 2%;
+}
+
 .error-message {
     color: red;
+    text-align: center;
 }
 
 .hidden {
@@ -53,42 +60,40 @@ li {
     font-size: 13px;
 }
 
-main {
+li p, h4 {
+    flex: 1;
+}
+
+.asset {
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: column;
-    padding-top: 2%;
+    align-items: center;
+    border-radius: 4px;
+    width: 50%;
+}
+
+main {
+    display: flex;
+    padding: 1%;
+    justify-content: space-between;
 }
 
 .all-results {
     display: flex;
     flex-direction: column;
-    width: 52%;
-    margin-left: 1%;
+    width: 55%;
     border: 1px solid lightgray;
     border-radius: 4px;
     padding: 1%;
-}
-
-.asset {
-    align-self: center;
-    display: flex;
-    flex-direction: row;
-    border: 1px solid lightgray;
-    margin-left: 1%;
-    border-radius: 4px;
-    padding: 1%;
-    width: 33%;
+    align-self: flex-start;
+    padding-bottom: 3%;
 }
 
 .d {
-    width: 42%;
+    width: 44%;
     height: 500px;
-    padding-right: 50px;
-    position: fixed;
-    left: 55%;
-    top: 32.5%;
-    bottom: 5%;
-    margin-bottom: 5%;
 }
 
 .line {
@@ -102,3 +107,46 @@ canvas {
     padding: 2%;
 }
 
+@media screen and (max-width: 750px) {
+    
+
+    
+    main {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    
+    .all-results {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border: 1px solid lightgray;
+        border-radius: 4px;
+        margin: 1%;
+    }
+    
+    .asset {
+        width: 100%;
+        margin: 1%;
+    }
+
+    .cp {
+        display: none;
+    }
+    
+    .d {
+        width: 100%;
+        margin: 1%;
+        padding: 0%;
+    }
+    
+    .line {
+        border-bottom: 1px solid lightgray;
+        padding: 2% 0% 2%;
+    }
+    
+    canvas {
+        border-radius: 1%;
+        border: 1px solid lightgray;
+    }
+}
