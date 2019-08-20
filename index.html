@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>API Project</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" 
+    integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header role="banner">
+        <h1>Asset Compare</h1> 
+        <h4>Compare annual return of traditional equities vs. cryptoassets, in one chart</h4>
+    </header>
+    <main>     
+        <section class="asset">
+            <form id="stock-form" >
+                <label for="search-term">Type a stock ticker</label>
+                <input type="text" name="search-term" id="stock-search-term" required class="uppercase" placeholder="GOOG">
+                <input type="submit" value="Go!">
+            </form>
+            <form id="crypto-form">
+                <label for="search-term">Type a cryptoasset</label>
+                <input type="text" name="search-term" id="crypto-search-term" required class="uppercase" placeholder="BTC">
+                <input type="submit" value="Go!">
+            </form>
+        </section>
+        <p id="js-error-message" class="error-message"></p>
+        <section class="all-results">
+            <p class="line">Stocks</p>
+            <div id="stocks" class="hidden">
+                <ul id="stocks-results-list">
+                </ul>
+            </div>
+            <p class="line">Crypto</p>
+            <div id="crypto" class="hidden">
+                <ul id="crypto-results-list">
+                </ul>
+            </div>
+        </section>
+        <section class= "d"> 
+            <canvas id= "myChart" width= "100" height= "100" aria-label="chart for assets"></canvas>
+        </section>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>
