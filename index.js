@@ -15,7 +15,7 @@ function displayStockResults(responseJson) {
     for (let i = 0; i < responseJson.data.length; i++){
         $('#stocks-results-list').append(
         `<li id= "${responseJson.data[i].symbol}"><h4>${responseJson.data[i].name} (${responseJson.data[i].symbol})</h4>
-        <p class="cp">Current price: ${responseJson.data[i].price} ${responseJson.data[i].currency}</p>
+        <p class="cp">Price: ${responseJson.data[i].price} ${responseJson.data[i].currency}</p>
         </li>`)
     }
   $('#stocks').removeClass('hidden');
@@ -52,7 +52,7 @@ function displayCryptoResults(responseJson) {
     if (cryptoReturn.includes('-')) {
         $('#crypto-results-list').append(
         `<li id = "${symbol}"><h4>${responseJson.data.name} (${symbol})</h4>
-        <p class="cp"> Current price: ${currentPrice} USD</p>
+        <p class="cp"> Price: ${currentPrice} USD</p>
         <p class="loss">1 year return: <span id="${cryptoReturn}">${cryptoReturn}%</span></p>
         <button id="deleteAsset">
         <div class="button-label">Remove</div>
@@ -62,7 +62,7 @@ function displayCryptoResults(responseJson) {
     else { 
         $('#crypto-results-list').append(
         `<li id = "${symbol}"><h4>${responseJson.data.name} (${responseJson.data.symbol})</h4>
-        <p class="cp"> Current price: ${currentPrice} USD</p>
+        <p class="cp"> Price: ${currentPrice} USD</p>
         <p class="gain">1 year return: +<span id="${cryptoReturn}">${cryptoReturn}%</span></p>
         <button id="deleteAsset">
         <div class="button-label">Remove</div>
@@ -166,19 +166,19 @@ const myChart = new Chart(ctx, {
             label: 'Annual percent return',
             data: [],
             backgroundColor: [
+                'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
+                'rgba(153, 102, 255, 1)',
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 0

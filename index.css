@@ -19,9 +19,10 @@ button:hover {
 }
 
 img {
-    height: 20px;
-    width: 50px;
-    margin-right: 2%;
+    height: 16px;
+    width: 40px;
+    margin-right: 1.5%;
+    padding-left: 7px;
 }
 
 .error-message {
@@ -60,8 +61,12 @@ li {
     font-size: 13px;
 }
 
+h4 {
+    padding-right: 10%;
+}
+
 li p, h4 {
-    flex: 1;
+    flex: 1 0;
 }
 
 .asset {
@@ -71,7 +76,7 @@ li p, h4 {
     flex-direction: column;
     align-items: center;
     border-radius: 4px;
-    width: 50%;
+    width: 100%;
 }
 
 main {
@@ -83,7 +88,7 @@ main {
 .all-results {
     display: flex;
     flex-direction: column;
-    width: 55%;
+    width: 50%;
     border: 1px solid lightgray;
     border-radius: 4px;
     padding: 1%;
@@ -92,8 +97,8 @@ main {
 }
 
 .d {
-    width: 44%;
-    height: 500px;
+    width: 49%;
+    height: 450px;
 }
 
 .line {
@@ -107,10 +112,93 @@ canvas {
     padding: 2%;
 }
 
-@media screen and (max-width: 750px) {
-    
+input[type=submit] {
+    padding:5px 15px; 
+    /* background: rgb(75,192,192);  */
+    /* border:0 */
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 90px; 
+    height: 40px;
+}
 
-    
+input[type=submit]:hover {
+    background-color: #21CE99;
+    box-shadow: 0px 15px 20px rgba(33, 206, 153, 0.4);
+    color: #fff;
+}
+
+input[type=submit].purp:hover {
+    background-color: #ED32B9;
+    box-shadow: 0px 15px 20px rgba(237, 50, 185, 0.4);
+}
+
+#crypto-form {
+    padding-top: 2%;
+}
+
+.inp {
+    display: inline-block;
+    position: relative;
+    margin: auto;}
+  .inp .label {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    font-size: 16px;
+    color: #9098a9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all 0.2s ease;}
+  .inp .border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: #21CE99;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all 0.15s ease;}
+  .inp input {
+    -webkit-appearance: none;
+    width: 400px;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 0;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid #c8ccd4;
+    background: none;
+    border-radius: 0;
+    /* color: #223254; */
+    transition: all 0.15s ease;
+}
+  .inp input:hover {
+    background: rgba(34,50,84,0.03);
+}
+  .inp input:not(:placeholder-shown) + span {
+    color: #5a667f;
+    transform: translateY(-26px) scale(0.75);
+}
+  .inp input:focus {
+    background: none;
+    outline: none;
+}
+  .inp input:focus + span {
+    color: #21CE99;
+    transform: translateY(-26px) scale(0.75);
+}
+  .inp input:focus + span + .border {
+    transform: scaleX(1);
+}
+  
+
+
+
+@media screen and (max-width: 750px) {
     main {
         display: flex;
         flex-direction: column-reverse;
@@ -123,6 +211,7 @@ canvas {
         border: 1px solid lightgray;
         border-radius: 4px;
         margin: 1%;
+        /* padding: 1%; */
     }
     
     .asset {
@@ -130,14 +219,26 @@ canvas {
         margin: 1%;
     }
 
+    .inp input {
+        width: 200px;
+    }
+
     .cp {
         display: none;
     }
     
+    ul {
+        padding: 1%;
+    }
+
     .d {
         width: 100%;
         margin: 1%;
         padding: 0%;
+    }
+
+    img {
+        padding-left: 10px;
     }
     
     .line {

@@ -11,6 +11,7 @@
     integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
     crossorigin="anonymous">
+
 </head>
 <body>
     <header role="banner">
@@ -18,27 +19,32 @@
         <h4>Compare annual return of traditional equities vs. cryptoassets, in one chart</h4>
     </header>
         <section class="asset">
-            <form id="stock-form" >
-                <label for="search-term">Type a stock ticker</label>
-                <input type="text" name="search-term" id="stock-search-term" required class="uppercase" placeholder="GOOG">
+            <form id="stock-form">
+                <label for="inp" class="inp">
+                    <input type="text" name="search-term" id="stock-search-term" required class="uppercase" placeholder="&nbsp;">
+                    <span class="label">Type a stock ticker</span>
+                    <span class="border"></span>
+                </label>
                 <input type="submit" value="Go!">
             </form>
             <form id="crypto-form">
-                <label for="search-term">Type a cryptoasset</label>
-                <input type="text" name="search-term" id="crypto-search-term" required class="uppercase" placeholder="BTC">
-                <input type="submit" value="Go!">
+                <label for="inp" class="inp">
+                <input type="text" name="search-term" id="crypto-search-term" required class="uppercase" placeholder="&nbsp;">
+                <span class="label">Type a crypto asset</span>
+                <span class="border"></span>
+                </label>
+                <input type="submit" value="Go!" class="purp">
             </form>
         </section>
         <p id="js-error-message" class="error-message"></p>
         <main role="results">
             <section class="all-results">
-                <!-- <p class="line"><i class="fas fa-chart-line"></i> STOCKS</p> -->
-                <p class="line"><img src="c2.png">STOCKS</p>
+                <p class="line"><img src="assets/c2.png">STOCKS</p>
                 <div id="stocks" class="hidden">
                     <ul id="stocks-results-list">
                     </ul>
                 </div>
-                <p class="line"><img src="s2.png">CRYPTO</p>
+                <p class="line"><img src="assets/s2.png">CRYPTO</p>
                 <div id="crypto" class="hidden">
                     <ul id="crypto-results-list">
                     </ul>
