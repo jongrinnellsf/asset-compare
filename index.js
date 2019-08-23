@@ -11,38 +11,39 @@ function formatQueryParams(params) {
 }
 
 function displayStockResults(responseJson) {
-  console.log(responseJson);
+    console.log(responseJson);
     for (let i = 0; i < responseJson.data.length; i++){
-        $('#stocks-results-list').append(
-        `<li id= "${responseJson.data[i].symbol}"><h4>${responseJson.data[i].name} (${responseJson.data[i].symbol})</h4>
+        $('#results-list').append(
+        `<li id= "${responseJson.data[i].symbol}" class="equity"><img src="assets/c2.png">
+        <h4>${responseJson.data[i].name} (${responseJson.data[i].symbol})</h4>
         <p class="cp">Price: ${responseJson.data[i].price} ${responseJson.data[i].currency}</p>
         </li>`)
-    }
-  $('#stocks').removeClass('hidden');
+    }; 
+  $('#asset-list').removeClass('hidden');
 }
 
 function appendStockResults(responseJson) {
     const newObj = Object.values(responseJson.history);
     const firstPrice = newObj[0];
     const lastPrice = newObj[newObj.length-1];
+    console.log(`this is the last price: ${lastPrice.close}`);
     const name = responseJson.name;
     parseFloat(firstPrice.close, lastPrice.close);
-    if (performance(firstPrice.close, lastPrice.close).includes('-')) {
-        $('#stocks-results-list li').last('li').append(
-        `<p class="loss">1 year return: <span id="${performance(firstPrice.close, lastPrice.close)}">${performance(firstPrice.close, lastPrice.close)}</span>%</p>
-        <button id="deleteAsset">
-        <div class="button-label">Remove</div>
-        </button>`)
+    if ($('.equity').last().attr('id') === name) {
+        addData(name, performance(firstPrice.close, lastPrice.close), 'rgb(33, 206, 153, 0.4)');
+        if (performance(firstPrice.close, lastPrice.close).includes('-')) {
+            $('.equity').last().append(
+            `<p class="loss">1 yr: <i class="fas fa-caret-down"></i><span id="${performance(firstPrice.close, lastPrice.close)}"> ${performance(firstPrice.close, lastPrice.close)}</span>%</p>
+            <button id="deleteAsset"><i class="fas fa-times"></i></button>`)
+        }
+        else { 
+            $('.equity').last().append(
+            `<p class="gain">1 yr: <i class="fas fa-caret-up"></i><span id="${performance(firstPrice.close, lastPrice.close)}"> +${performance(firstPrice.close, lastPrice.close)}</span>%</p>
+            <button id="deleteAsset"><i class="fas fa-times"></i></button>`)
+        }
     }
-    else { 
-        $('#stocks-results-list li').last('li').append(
-        `<p class="gain">1 year return: +<span id="${performance(firstPrice.close, lastPrice.close)}">${performance(firstPrice.close, lastPrice.close)}</span>%</p>
-        <button id="deleteAsset">
-        <div class="button-label">Remove</div>
-        </button>`)
-    }
-    addData(name, performance(firstPrice.close, lastPrice.close));
-}   
+} 
+
 
 function displayCryptoResults(responseJson) {
     console.log(responseJson);
@@ -50,27 +51,23 @@ function displayCryptoResults(responseJson) {
     const currentPrice = responseJson.data.market_data.price_usd.toFixed(2);
     const symbol = responseJson.data.symbol;
     if (cryptoReturn.includes('-')) {
-        $('#crypto-results-list').append(
-        `<li id = "${symbol}"><h4>${responseJson.data.name} (${symbol})</h4>
+        $('#results-list').append(
+        `<li id = "${symbol}"><img src="assets/s2.png"><h4>${responseJson.data.name} (${symbol})</h4>
         <p class="cp"> Price: ${currentPrice} USD</p>
-        <p class="loss">1 year return: <span id="${cryptoReturn}">${cryptoReturn}%</span></p>
-        <button id="deleteAsset">
-        <div class="button-label">Remove</div>
-        </button>
+        <p class="loss">1 yr: <i class="fas fa-caret-down"></i><span id="${cryptoReturn}"> ${cryptoReturn}%</span></p>
+        <button id="deleteAsset"><i class="fas fa-times"></i></button>
         </li>`)
     }
     else { 
-        $('#crypto-results-list').append(
-        `<li id = "${symbol}"><h4>${responseJson.data.name} (${responseJson.data.symbol})</h4>
+        $('#results-list').append(
+        `<li id = "${symbol}"><img src="assets/s2.png"><h4>${responseJson.data.name} (${responseJson.data.symbol})</h4>
         <p class="cp"> Price: ${currentPrice} USD</p>
-        <p class="gain">1 year return: +<span id="${cryptoReturn}">${cryptoReturn}%</span></p>
-        <button id="deleteAsset">
-        <div class="button-label">Remove</div>
-        </button>
+        <p class="gain">1 yr: <i class="fas fa-caret-up"></i><span id="${cryptoReturn}"> +${cryptoReturn}%</span></p>
+        <button id="deleteAsset"><i class="fas fa-times"></i></button>
         </li>`)
     }
-    addData(symbol, cryptoReturn); 
-    $('#crypto').removeClass('hidden');
+    addData(symbol, cryptoReturn, 'rgb(75, 0, 130, 0.4)'); 
+    $('#asset-list').removeClass('hidden');
 }
 
 function getStockData(query) {
@@ -163,30 +160,21 @@ const myChart = new Chart(ctx, {
     data: {
         labels: [],
         datasets: [{
-            label: 'Annual percent return',
+            label: 'annual % return',
             data: [],
-            backgroundColor: [
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
+            backgroundColor: [],
+            borderColor: [],
             borderWidth: 0
-        }]
+        }],
     },
     options: {
         resonsive: true,
         maintainAspectRatio: false,
+        legend: {
+            labels: {
+                defaultFontFamily: "sans serif",
+            }
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -194,30 +182,47 @@ const myChart = new Chart(ctx, {
                     callback: function(value, index, values) {
                         return value + '%';
                     }
+                },
+                gridLines: {
+                    color: "transparent",
+                    display: true,
+                    drawBorder: false,
+                    zeroLineColor: "#ccc",
+                    zeroLineWidth: 1
+                }      
+            }],
+            xAxes: [{
+                gridLines: {
+                    color: "transparent"
                 }
             }]
         }
     }
 });
 
-function addData(label, data) {
+function addData(label, data, color) {
     myChart.data.labels.push(label);
     myChart.data.datasets.forEach(dataset => dataset.data.push(data));
+    myChart.data.datasets.forEach(dataset => dataset.backgroundColor.push(color));
     myChart.update();
 }
 
 function handleDeleteItemClicked() {
-    $('#stocks-results-list, #crypto-results-list').on('click', '.button-label', event =>
-    {
+    $('#results-list').on('click', '#deleteAsset', event =>{
+    deleteItemClicked();
+    });
+}
+
+function deleteItemClicked() {
     const id = $(event.target).closest('li').attr('id');
     const num = $(event.target).closest('li').find('p > span').attr('id');
     const labelIndex = myChart.data.labels.findIndex(item => item === id)
     myChart.data.labels.splice(labelIndex, 1);
     const valueIndex = myChart.data.datasets[0].data.findIndex(item => item === num)
     myChart.data.datasets[0].data.splice(valueIndex, 1);
+    myChart.data.datasets[0].backgroundColor.splice(valueIndex, 1);
     myChart.update();
-    $(event.target).closest('li').empty();
-    });
+    $(event.target).closest('li').remove();
 }
 
 function noSpaces() {
@@ -227,28 +232,24 @@ function noSpaces() {
     });
 };
 
-function watchStockForm() {
+function watchForm() {
     noSpaces();
-    $('#stock-form').submit(event => {
+    $('#asset-form').submit(event => {
         event.preventDefault();
         $('#js-error-message').empty();
-        const symbol = $('#stock-search-term').val();
-        getStockData(symbol);
-        getHistoricalStockData(symbol);
+        const stock = $('#stock-search-term').val();
+        const crypto = $('#crypto-search-term').val();
+        if (stock.length > 0) {
+            getStockData(stock);
+            getHistoricalStockData(stock);
+        }
+        if (crypto.length > 0){
+            getCryptoData(crypto);
+        }
+        $('#stock-search-term, #crypto-search-term').val("");
   });
 }
 
-function watchCryptoForm() {
-    noSpaces();
-    $('#crypto-form').submit(event => {
-        event.preventDefault();
-        $('#js-error-message').empty();
-        const symbol = $('#crypto-search-term').val();
-        getCryptoData(symbol);
-    });
-}
-
-$(watchStockForm);
-$(watchCryptoForm);
+$(watchForm);
 $(handleDeleteItemClicked)
 

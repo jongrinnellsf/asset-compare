@@ -2,57 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>API Project</title>
     <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" 
     integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
     crossorigin="anonymous">
-
 </head>
 <body>
+    <div class="mobile">
+        <p class="logo"><span class= "green">A</span>|<span class= "indigo">C</span></p>
+        <p class="appName">Asset Compare</p>
+    </div>
     <header role="banner">
-        <h1>Asset Compare</h1> 
-        <h4>Compare annual return of traditional equities vs. cryptoassets, in one chart</h4>
+        <h3>Compare annual return of any global stock vs. cryptoasset, in one chart</h3>
     </header>
         <section class="asset">
-            <form id="stock-form">
+            <form id="asset-form">
                 <label for="inp" class="inp">
-                    <input type="text" name="search-term" id="stock-search-term" required class="uppercase" placeholder="&nbsp;">
+                    <input type="text" name="search-term" id="stock-search-term" class="uppercase" placeholder="&nbsp;">
                     <span class="label">Type a stock ticker</span>
                     <span class="border"></span>
                 </label>
+                <label for="inp" class="inp c">
+                        <input type="text" name="search-term" id="crypto-search-term" class="uppercase" placeholder="&nbsp;">
+                        <span class="label crypto">Type a crypto asset</span>
+                        <span class="border"></span>
+                </label><br>
                 <input type="submit" value="Go!">
-            </form>
-            <form id="crypto-form">
-                <label for="inp" class="inp">
-                <input type="text" name="search-term" id="crypto-search-term" required class="uppercase" placeholder="&nbsp;">
-                <span class="label">Type a crypto asset</span>
-                <span class="border"></span>
-                </label>
-                <input type="submit" value="Go!" class="purp">
             </form>
         </section>
         <p id="js-error-message" class="error-message"></p>
         <main role="results">
             <section class="all-results">
-                <p class="line"><img src="assets/c2.png">STOCKS</p>
-                <div id="stocks" class="hidden">
-                    <ul id="stocks-results-list">
-                    </ul>
+                <div class= "d"> 
+                    <canvas id= "myChart" width= "100" height= "100" aria-label="chart for assets"></canvas>
                 </div>
-                <p class="line"><img src="assets/s2.png">CRYPTO</p>
-                <div id="crypto" class="hidden">
-                    <ul id="crypto-results-list">
+                <div id="asset-list" class="hidden">
+                    <ul id="results-list">
                     </ul>
                 </div>
             </section>
-            <div class= "d"> 
-                <canvas id= "myChart" width= "100" height= "100" aria-label="chart for assets"></canvas>
-            </div>
         </main>
     <script src="index.js"></script>
 </body>

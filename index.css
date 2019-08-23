@@ -1,18 +1,53 @@
 * {
     box-sizing: border-box;
+    font-family: 'PT Sans', sans-serif;
 }
-  
-body {
-    font-family: 'Helvetica', 'Arial', 'sans-serif';
+
+.mobile {
+    font-size: 18px;
+    background-color: white;
+    overflow: hidden;
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    height: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* color: white; */
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    border-bottom: 1px solid lightgray;
+}
+
+.logo {
+    letter-spacing: 4px;
+    margin-left: 20px;
+    position: fixed;
+    top: -1px;
+}
+
+.appName {
+    margin-left: auto;
+    margin-right: auto;
+    /* padding-right: 5%; */
+    flex-wrap: 0;
+    /* padding-right: 2%; */
+
 }
 
 header {
+    color: grey;
     text-align: center;
+    margin-top: 100px;
 }
 
+
 input {
-    margin-top: 3%;
+    margin-top: 4%;
 }
+
 
 button:hover {
     cursor: pointer;
@@ -26,7 +61,7 @@ img {
 }
 
 .error-message {
-    color: red;
+    color: darkred;
     text-align: center;
 }
 
@@ -39,11 +74,11 @@ input.uppercase {
 }
 
 .gain {
-    color: green;
+    color: darkgreen;
 }
 
 .loss {
-    color: red;
+    color: darkred;
 }
 
 ul, li {
@@ -53,25 +88,43 @@ ul, li {
     padding: 0;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+}
+
 li {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    justify-content: center;
     font-size: 13px;
+    margin: 1%;
+    padding: 1%;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+
+li p, h4 {
+    flex: 1;
+    padding-right: 3%;
 }
 
 h4 {
-    padding-right: 10%;
+    width: 10%;
 }
 
-li p, h4 {
-    flex: 1 0;
+#deleteAsset {
+    border: none;
+}
+
+#deleteAsset:hover {
+    color: darkred;
 }
 
 .asset {
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,68 +134,59 @@ li p, h4 {
 
 main {
     display: flex;
-    padding: 1%;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .all-results {
     display: flex;
     flex-direction: column;
+    align-content: center;
+    justify-content: center;
     width: 50%;
-    border: 1px solid lightgray;
     border-radius: 4px;
-    padding: 1%;
-    align-self: flex-start;
-    padding-bottom: 3%;
 }
 
 .d {
-    width: 49%;
-    height: 450px;
-}
-
-.line {
-    border-bottom: 1px solid lightgray;
-    padding: 2% 0% 2%;
+    width: 70%;
+    height: 275px;
+    align-self: center;
+    padding: 1% 0;
 }
 
 canvas {
     border-radius: 1%;
     border: 1px solid lightgray;
-    padding: 2%;
+    /* padding: 2%; */
 }
 
 input[type=submit] {
-    padding:5px 15px; 
-    /* background: rgb(75,192,192);  */
-    /* border:0 */
+    /* padding:5px 15px;  */
+    /* background: rgba(34,50,84,0.08); */
     cursor:pointer;
-    -webkit-border-radius: 5px;
     border-radius: 5px;
-    width: 90px; 
+    /* border-radius: 5px; */
     height: 40px;
+    width: 100%;
+    align-self: center;
+    outline: none;
+    font-size: 14px;
+    margin-top: 0%;
 }
 
 input[type=submit]:hover {
-    background-color: #21CE99;
-    box-shadow: 0px 15px 20px rgba(33, 206, 153, 0.4);
-    color: #fff;
+    /* background: white; */
+    background: rgb(211,211,211, 0.2)
+
 }
 
-input[type=submit].purp:hover {
-    background-color: #ED32B9;
-    box-shadow: 0px 15px 20px rgba(237, 50, 185, 0.4);
-}
-
-#crypto-form {
-    padding-top: 2%;
-}
 
 .inp {
     display: inline-block;
     position: relative;
-    margin: auto;}
-  .inp .label {
+    margin: auto;
+}
+
+.inp .label {
     position: absolute;
     top: 16px;
     left: 0;
@@ -150,8 +194,10 @@ input[type=submit].purp:hover {
     color: #9098a9;
     font-weight: 500;
     transform-origin: 0 0;
-    transition: all 0.2s ease;}
-  .inp .border {
+    transition: all 0.2s ease;
+}
+
+.inp .border {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -160,90 +206,88 @@ input[type=submit].purp:hover {
     background: #21CE99;
     transform: scaleX(0);
     transform-origin: 0 0;
-    transition: all 0.15s ease;}
-  .inp input {
+    transition: all 0.15s ease;
+}
+
+.inp input {
     -webkit-appearance: none;
-    width: 400px;
+    width: 300px;
     border: 0;
     font-family: inherit;
     padding: 12px 0;
+    /* padding: 4%; */
+
     height: 48px;
-    font-size: 16px;
-    font-weight: 500;
-    border-bottom: 2px solid #c8ccd4;
-    background: none;
+    font-size: 14px;
+    border-bottom: 2px solid lightgray;
+    /* background: none; */
     border-radius: 0;
-    /* color: #223254; */
     transition: all 0.15s ease;
 }
-  .inp input:hover {
+
+.inp input:hover {
     background: rgba(34,50,84,0.03);
 }
-  .inp input:not(:placeholder-shown) + span {
+
+.inp input:not(:placeholder-shown) + span {
     color: #5a667f;
-    transform: translateY(-26px) scale(0.75);
+    transform: translateY(-7px) scale(0.65);
 }
-  .inp input:focus {
+
+.inp input:focus {
     background: none;
     outline: none;
 }
-  .inp input:focus + span {
+
+.inp input:focus + span {
     color: #21CE99;
-    transform: translateY(-26px) scale(0.75);
+    transform: translateY(-7px) scale(0.65);
 }
-  .inp input:focus + span + .border {
+
+.inp input:focus + span + .border {
     transform: scaleX(1);
 }
-  
+
+.c input:focus + span {
+    color: #4B0082;
+    transform: translateY(-7px) scale(0.65);
+}
+
+.c .border {
+    background: #4B0082;
+}
+
+/* .green {
+    color: #21CE99;
+}
+
+.indigo {
+    color: #4B0082;
+} */
 
 
 
 @media screen and (max-width: 750px) {
+    
     main {
-        display: flex;
-        flex-direction: column-reverse;
+        width: 100%;
     }
-    
+
     .all-results {
-        display: flex;
-        flex-direction: column;
         width: 100%;
-        border: 1px solid lightgray;
-        border-radius: 4px;
-        margin: 1%;
-        /* padding: 1%; */
-    }
-    
-    .asset {
-        width: 100%;
-        margin: 1%;
     }
 
     .inp input {
-        width: 200px;
-    }
-
-    .cp {
-        display: none;
-    }
-    
-    ul {
-        padding: 1%;
+        width: 270px;
     }
 
     .d {
         width: 100%;
-        margin: 1%;
-        padding: 0%;
+        padding: 1%;
     }
 
     img {
         padding-left: 10px;
-    }
-    
-    .line {
-        border-bottom: 1px solid lightgray;
-        padding: 2% 0% 2%;
     }
     
     canvas {
