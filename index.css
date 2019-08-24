@@ -73,14 +73,6 @@ input.uppercase {
     text-transform: uppercase; 
 }
 
-.gain {
-    color: darkgreen;
-}
-
-.loss {
-    color: darkred;
-}
-
 ul, li {
     list-style-type: none;
     list-style-position:inside;
@@ -110,10 +102,6 @@ li {
 li p, h4 {
     flex: 1;
     padding-right: 3%;
-}
-
-h4 {
-    width: 10%;
 }
 
 #deleteAsset {
@@ -160,21 +148,21 @@ canvas {
 }
 
 input[type=submit] {
-    /* padding:5px 15px;  */
-    /* background: rgba(34,50,84,0.08); */
+
     cursor:pointer;
     border-radius: 5px;
-    /* border-radius: 5px; */
     height: 40px;
     width: 100%;
     align-self: center;
     outline: none;
     font-size: 14px;
     margin-top: 0%;
+    border: 1px solid lightgrey;
+
+
 }
 
 input[type=submit]:hover {
-    /* background: white; */
     background: rgb(211,211,211, 0.2)
 
 }
@@ -274,16 +262,33 @@ input[type=submit]:hover {
     }
 
     .all-results {
-        width: 100%;
+        width: 90%;
     }
 
     .inp input {
         width: 270px;
+        height: 30px;
+        font-size: 12px;
     }
 
-    .d {
+    .inp .label {
+        font-size: 12px;
+    }
+
+    .all-results .d {
         width: 100%;
-        padding: 1%;
+    }
+
+    input[type=submit] {
+        cursor:pointer;
+        border-radius: 5px;
+        height: 30px;
+        width: 100%;
+        align-self: center;
+        outline: none;
+        font-size: 10px;
+        margin-top: 0%;
+        border: 1px solid lightgrey;
     }
 
     img {

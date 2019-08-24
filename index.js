@@ -1,8 +1,10 @@
 'use strict';
 
 const apiKey = 'dVeg7VQM1O9f0aYslbducBwQ6HyhY6byxkvuZBJ1Tkl4FVZtB58xgtNmOHte'; 
-const stockURL = 'https://api.worldtradingdata.com/api/v1/';
+const IexAPIkey = 'pk_91657a0b579f4a76b63293f0eedc0272';
 const cryptoURL = 'https://data.messari.io/api/v1/assets/';
+const stockURL = 'https://cloud.iexapis.com/v1/stock/';
+
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
@@ -12,130 +14,61 @@ function formatQueryParams(params) {
 
 function displayStockResults(responseJson) {
     console.log(responseJson);
-    for (let i = 0; i < responseJson.data.length; i++){
+    // if (annualChange.includes('-')) {
         $('#results-list').append(
-        `<li id= "${responseJson.data[i].symbol}" class="equity"><img src="assets/c2.png">
-        <h4>${responseJson.data[i].name} (${responseJson.data[i].symbol})</h4>
-        <p class="cp">Price: ${responseJson.data[i].price} ${responseJson.data[i].currency}</p>
-        </li>`)
-    }; 
-  $('#asset-list').removeClass('hidden');
+        `<li id= "${responseJson.symbol}" class="equity"><img src="assets/c2.png">
+        <h4>${responseJson.companyName} (${responseJson.symbol})</h4>
+        <p>Current price: $${responseJson.latestPrice}</p>
+        <p>Market cap: <span id="${responseJson.marketCap}"> $${formatToUnits(responseJson.marketCap, 2)}</span></p>
+        <button id="deleteAsset"><i class="fas fa-times"></i></button>
+        </li>`);
+    $('#asset-list').removeClass('hidden');
+    addData(responseJson.symbol, responseJson.marketCap, 'rgb(33, 206, 153, 0.4)');
+    console.log(formatToUnits(responseJson.marketCap, 2));
 }
-
-function appendStockResults(responseJson) {
-    const newObj = Object.values(responseJson.history);
-    const firstPrice = newObj[0];
-    const lastPrice = newObj[newObj.length-1];
-    console.log(`this is the last price: ${lastPrice.close}`);
-    const name = responseJson.name;
-    parseFloat(firstPrice.close, lastPrice.close);
-    if ($('.equity').last().attr('id') === name) {
-        addData(name, performance(firstPrice.close, lastPrice.close), 'rgb(33, 206, 153, 0.4)');
-        if (performance(firstPrice.close, lastPrice.close).includes('-')) {
-            $('.equity').last().append(
-            `<p class="loss">1 yr: <i class="fas fa-caret-down"></i><span id="${performance(firstPrice.close, lastPrice.close)}"> ${performance(firstPrice.close, lastPrice.close)}</span>%</p>
-            <button id="deleteAsset"><i class="fas fa-times"></i></button>`)
-        }
-        else { 
-            $('.equity').last().append(
-            `<p class="gain">1 yr: <i class="fas fa-caret-up"></i><span id="${performance(firstPrice.close, lastPrice.close)}"> +${performance(firstPrice.close, lastPrice.close)}</span>%</p>
-            <button id="deleteAsset"><i class="fas fa-times"></i></button>`)
-        }
-    }
-} 
-
 
 function displayCryptoResults(responseJson) {
     console.log(responseJson);
-    const cryptoReturn = responseJson.data.roi_data.percent_change_last_1_year.toFixed(2);
-    const currentPrice = responseJson.data.market_data.price_usd.toFixed(2);
+    const marketCap = responseJson.data.marketcap.current_marketcap_usd.toFixed(2);
     const symbol = responseJson.data.symbol;
-    if (cryptoReturn.includes('-')) {
+    const price = responseJson.data.market_data.price_usd.toFixed(2);
         $('#results-list').append(
         `<li id = "${symbol}"><img src="assets/s2.png"><h4>${responseJson.data.name} (${symbol})</h4>
-        <p class="cp"> Price: ${currentPrice} USD</p>
-        <p class="loss">1 yr: <i class="fas fa-caret-down"></i><span id="${cryptoReturn}"> ${cryptoReturn}%</span></p>
+        <p>Current price: $${price}</p>
+        <p>Market cap: <span id="${marketCap}"> $${formatToUnits(marketCap, 2)}</span></p>
         <button id="deleteAsset"><i class="fas fa-times"></i></button>
-        </li>`)
-    }
-    else { 
-        $('#results-list').append(
-        `<li id = "${symbol}"><img src="assets/s2.png"><h4>${responseJson.data.name} (${responseJson.data.symbol})</h4>
-        <p class="cp"> Price: ${currentPrice} USD</p>
-        <p class="gain">1 yr: <i class="fas fa-caret-up"></i><span id="${cryptoReturn}"> +${cryptoReturn}%</span></p>
-        <button id="deleteAsset"><i class="fas fa-times"></i></button>
-        </li>`)
-    }
-    addData(symbol, cryptoReturn, 'rgb(75, 0, 130, 0.4)'); 
+        </li>`);
+    addData(symbol, marketCap, 'rgb(75, 0, 130, 0.4)'); 
+    console.log(formatToUnits(marketCap, 2));
+
     $('#asset-list').removeClass('hidden');
 }
 
 function getStockData(query) {
-  const params = {
-    symbol: query,
-    api_token: apiKey,
-  };
-  const queryString = formatQueryParams(params)
-  const url = stockURL + 'stock?' + queryString;
-  console.log(url);
-  fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(response.statusText);
-    })
-    .then(responseJson => displayStockResults(responseJson))
-    .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
-    });
-}
-
-//calculcate annual percent return for stocks (don't need for crypto, because API has that data)
-function performance (now, past) {
-    const performancePercent = ((now - past)/past * 100);
-    return performancePercent.toFixed(2);
-};
-
-//calculcate ISO date for 1 year ago, for date_from parameter in getHistoricalStockData
-function minusOneYear() {
-    let startDate = new Date();
-    startDate.setFullYear(startDate.getFullYear() - 1)
-    let oneYearAgo = startDate.toISOString().slice(0, 10);
-    return oneYearAgo;
-}
-
-//set the ISO date for today, for date_to paramter is getHistoricalStockData
-function today() {
-    let startDate = new Date();
-    startDate.setFullYear(startDate.getFullYear())
-    let todaysDate = startDate.toISOString().slice(0, 10);
-    return todaysDate;
-}
-
-function getHistoricalStockData(query) {
     const params = {
-      symbol: query,
-      api_token: apiKey,
-      sort: 'newest',
-      date_to: today(),
-      date_from: minusOneYear(),
+        token: IexAPIkey,
     };
     const queryString = formatQueryParams(params)
-    const url = stockURL + 'history?' + queryString;
+
+    const url = stockURL + query + '/quote?' + queryString
     console.log(url);
     fetch(url)
-    .then(response => {
+      .then(response => {
         if (response.ok) {
           return response.json();
         }
         throw new Error(response.statusText);
-    })
-    .then(responseJson => appendStockResults(responseJson))
-    .catch(err => {
+      })
+      .then(responseJson => displayStockResults(responseJson))
+      .catch(err => {
         $('#js-error-message').text(`Something went wrong: ${err.message}`);
-    });
+      });
 }
+  
+
+function percentage (change) {
+    return (change * 100).toFixed(2);
+};
 
 function getCryptoData(query) {
     const url = cryptoURL + query + '/metrics'
@@ -160,7 +93,7 @@ const myChart = new Chart(ctx, {
     data: {
         labels: [],
         datasets: [{
-            label: 'annual % return',
+            label: 'Market Cap',
             data: [],
             backgroundColor: [],
             borderColor: [],
@@ -179,17 +112,17 @@ const myChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    callback: function(value, index, values) {
-                        return value + '%';
+                    callback: function formatToUnits(number) {
+                        const abbrev = ['', 'K', 'M', 'B', 'T'];
+                        const unrangifiedOrder = Math.floor(Math.log10(Math.abs(number)) / 3)
+                        const order = Math.max(0, Math.min(unrangifiedOrder, abbrev.length -1 ))
+                        const suffix = abbrev[order];
+                        return '$' + (number / Math.pow(10, order * 3)).toFixed(1) + suffix;
                     }
                 },
                 gridLines: {
                     color: "transparent",
-                    display: true,
-                    drawBorder: false,
-                    zeroLineColor: "#ccc",
-                    zeroLineWidth: 1
-                }      
+                },      
             }],
             xAxes: [{
                 gridLines: {
@@ -199,6 +132,22 @@ const myChart = new Chart(ctx, {
         }
     }
 });
+
+
+function formatToUnits(number, precision) {
+    const abbrev = ['', 'K', 'M', 'B', 'T'];
+    const unrangifiedOrder = Math.floor(Math.log10(Math.abs(number)) / 3)
+    const order = Math.max(0, Math.min(unrangifiedOrder, abbrev.length -1 ))
+    const suffix = abbrev[order];
+    return (number / Math.pow(10, order * 3)).toFixed(precision) + suffix;
+}
+
+
+
+
+
+
+
 
 function addData(label, data, color) {
     myChart.data.labels.push(label);
@@ -232,6 +181,11 @@ function noSpaces() {
     });
 };
 
+
+// function grabStockSymbol() {
+//     return $('#stock-search-term').val().toUpperCase();
+// }
+
 function watchForm() {
     noSpaces();
     $('#asset-form').submit(event => {
@@ -241,12 +195,12 @@ function watchForm() {
         const crypto = $('#crypto-search-term').val();
         if (stock.length > 0) {
             getStockData(stock);
-            getHistoricalStockData(stock);
         }
         if (crypto.length > 0){
             getCryptoData(crypto);
         }
         $('#stock-search-term, #crypto-search-term').val("");
+        // $(`#asset-form`)[0].reset();
   });
 }
 
