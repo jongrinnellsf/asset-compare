@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class="mobile">
-        <p class="logo"><span class= "green">A</span>|<span class= "indigo">C</span></p>
+        <p class="logo"><a href="#asset-form">A|C</a></p>
         <p class="appName">Asset Compare</p>
     </div>
     <header role="banner">
@@ -29,10 +29,10 @@
                     <span class="border"></span>
                 </label>
                 <label for="inp" class="inp c">
-                        <input type="text" name="search-term" id="crypto-search-term" class="uppercase" placeholder="&nbsp;">
-                        <span class="label crypto">Type a crypto asset</span>
-                        <span class="border"></span>
-                </label><br>
+                    <input type="text" name="search-term" id="crypto-search-term" class="uppercase" placeholder="&nbsp;">
+                    <span class="label">Type a crypto asset</span>
+                    <span class="border"></span>
+                </label>
                 <input type="submit" value="Go!">
             </form>
         </section>
@@ -40,7 +40,7 @@
         <main role="results">
             <section class="all-results">
                 <div class= "d"> 
-                    <canvas id= "myChart"  aria-label="chart for assets"></canvas>
+                    <canvas id= "myChart" aria-label="chart for assets"></canvas>
                 </div>
                 <div id="asset-list" class="hidden list">
                     <ul id="results-list">
