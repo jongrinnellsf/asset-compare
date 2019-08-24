@@ -14,7 +14,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /* color: white; */
     display: flex;
     align-items: center;
     z-index: 10;
@@ -31,10 +30,6 @@
 .appName {
     margin-left: auto;
     margin-right: auto;
-    /* padding-right: 5%; */
-    flex-wrap: 0;
-    /* padding-right: 2%; */
-
 }
 
 header {
@@ -42,7 +37,6 @@ header {
     text-align: center;
     margin-top: 100px;
 }
-
 
 input {
     margin-top: 4%;
@@ -92,16 +86,19 @@ li {
     align-items: center;
     justify-content: center;
     font-size: 13px;
-    margin: 1%;
-    padding: 1%;
+    margin: 0% 0% 1% 1%;
+    padding: 0% 3%;
     border: 1px solid lightgray;
     border-radius: 4px;
 }
 
+li, canvas, .mobile {
+    -webkit-box-shadow: 4px 4px 6px 1px #D3D3D3; 
+    box-shadow: 4px 4px 6px 1px #D3D3D3;
+}
 
 li p, h4 {
     flex: 1;
-    padding-right: 3%;
 }
 
 #deleteAsset {
@@ -121,34 +118,35 @@ li p, h4 {
 }
 
 main {
+    padding-top: 30px;
     display: flex;
     justify-content: center;
 }
 
 .all-results {
     display: flex;
-    flex-direction: column;
-    align-content: center;
+    flex-direction: row;
     justify-content: center;
-    width: 50%;
+    width: 100%;
     border-radius: 4px;
 }
 
+.list {
+    width: 40%;
+}
+
 .d {
-    width: 70%;
-    height: 275px;
-    align-self: center;
-    padding: 1% 0;
+    width: 30%;
+    height: 350px;
 }
 
 canvas {
     border-radius: 1%;
     border: 1px solid lightgray;
-    /* padding: 2%; */
+    padding: 1%;
 }
 
 input[type=submit] {
-
     cursor:pointer;
     border-radius: 5px;
     height: 40px;
@@ -158,13 +156,10 @@ input[type=submit] {
     font-size: 14px;
     margin-top: 0%;
     border: 1px solid lightgrey;
-
-
 }
 
 input[type=submit]:hover {
     background: rgb(211,211,211, 0.2)
-
 }
 
 
@@ -194,7 +189,7 @@ input[type=submit]:hover {
     background: #21CE99;
     transform: scaleX(0);
     transform-origin: 0 0;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
 }
 
 .inp input {
@@ -203,14 +198,11 @@ input[type=submit]:hover {
     border: 0;
     font-family: inherit;
     padding: 12px 0;
-    /* padding: 4%; */
-
     height: 48px;
     font-size: 14px;
     border-bottom: 2px solid lightgray;
-    /* background: none; */
     border-radius: 0;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
 }
 
 .inp input:hover {
@@ -245,37 +237,42 @@ input[type=submit]:hover {
     background: #4B0082;
 }
 
-/* .green {
-    color: #21CE99;
-}
-
-.indigo {
-    color: #4B0082;
-} */
 
 
-
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
     
     main {
         width: 100%;
+        padding-top: 15px;
     }
 
     .all-results {
         width: 90%;
+        flex-direction: column;
     }
 
-    .inp input {
+    li {
+        margin: 2% 0%;
+        padding: 0% 1%;
+    }
+
+    .inp input, .inp label {
         width: 270px;
-        height: 30px;
+        height: 50px;
         font-size: 12px;
     }
 
-    .inp .label {
-        font-size: 12px;
+    .d {
+        width: 270px;
+        height: 250px;
+        align-self: center;
     }
 
-    .all-results .d {
+    canvas {
+        padding: 1%;
+    }
+
+    .list {
         width: 100%;
     }
 
@@ -284,19 +281,9 @@ input[type=submit]:hover {
         border-radius: 5px;
         height: 30px;
         width: 100%;
-        align-self: center;
         outline: none;
         font-size: 10px;
         margin-top: 0%;
         border: 1px solid lightgrey;
-    }
-
-    img {
-        padding-left: 10px;
-    }
-    
-    canvas {
-        border-radius: 1%;
-        border: 1px solid lightgray;
     }
 }

@@ -13,18 +13,17 @@ function formatQueryParams(params) {
 }
 
 function displayStockResults(responseJson) {
+    let marketCap = responseJson.marketCap.toFixed(2)
     console.log(responseJson);
-    // if (annualChange.includes('-')) {
         $('#results-list').append(
-        `<li id= "${responseJson.symbol}" class="equity"><img src="assets/c2.png">
+        `<li id= "${responseJson.symbol}"><img src="assets/c2.png">
         <h4>${responseJson.companyName} (${responseJson.symbol})</h4>
         <p>Current price: $${responseJson.latestPrice}</p>
-        <p>Market cap: <span id="${responseJson.marketCap}"> $${formatToUnits(responseJson.marketCap, 2)}</span></p>
+        <p>Market cap: <span id="${marketCap}"> $${formatToUnits(marketCap, 2)}</span></p>
         <button id="deleteAsset"><i class="fas fa-times"></i></button>
         </li>`);
     $('#asset-list').removeClass('hidden');
-    addData(responseJson.symbol, responseJson.marketCap, 'rgb(33, 206, 153, 0.4)');
-    console.log(formatToUnits(responseJson.marketCap, 2));
+    addData(responseJson.symbol, marketCap, 'rgb(33, 206, 153, 0.4)');
 }
 
 function displayCryptoResults(responseJson) {
@@ -33,15 +32,14 @@ function displayCryptoResults(responseJson) {
     const symbol = responseJson.data.symbol;
     const price = responseJson.data.market_data.price_usd.toFixed(2);
         $('#results-list').append(
-        `<li id = "${symbol}"><img src="assets/s2.png"><h4>${responseJson.data.name} (${symbol})</h4>
+        `<li id = "${symbol}"><img src="assets/s2.png">
+        <h4>${responseJson.data.name} (${symbol})</h4>
         <p>Current price: $${price}</p>
         <p>Market cap: <span id="${marketCap}"> $${formatToUnits(marketCap, 2)}</span></p>
         <button id="deleteAsset"><i class="fas fa-times"></i></button>
         </li>`);
-    addData(symbol, marketCap, 'rgb(75, 0, 130, 0.4)'); 
-    console.log(formatToUnits(marketCap, 2));
-
     $('#asset-list').removeClass('hidden');
+    addData(symbol, marketCap, 'rgb(75, 0, 130, 0.4)'); 
 }
 
 function getStockData(query) {
@@ -49,7 +47,6 @@ function getStockData(query) {
         token: IexAPIkey,
     };
     const queryString = formatQueryParams(params)
-
     const url = stockURL + query + '/quote?' + queryString
     console.log(url);
     fetch(url)
@@ -61,14 +58,9 @@ function getStockData(query) {
       })
       .then(responseJson => displayStockResults(responseJson))
       .catch(err => {
-        $('#js-error-message').text(`Something went wrong: ${err.message}`);
+        $('#js-error-message').text(`Ah sorry, we could not find that asset. Please try again. `);
       });
 }
-  
-
-function percentage (change) {
-    return (change * 100).toFixed(2);
-};
 
 function getCryptoData(query) {
     const url = cryptoURL + query + '/metrics'
@@ -82,7 +74,7 @@ function getCryptoData(query) {
     })
     .then(responseJson => displayCryptoResults(responseJson))
     .catch(err => {
-    $('#js-error-message').text(`Something went wrong: ${err.message}`);
+    $('#js-error-message').text(`Ah sorry, we could not find that asset. Please try again.`);
     });
 }
 
@@ -117,7 +109,7 @@ const myChart = new Chart(ctx, {
                         const unrangifiedOrder = Math.floor(Math.log10(Math.abs(number)) / 3)
                         const order = Math.max(0, Math.min(unrangifiedOrder, abbrev.length -1 ))
                         const suffix = abbrev[order];
-                        return '$' + (number / Math.pow(10, order * 3)).toFixed(1) + suffix;
+                        return '$' + (number / Math.pow(10, order * 3)) + suffix;
                     }
                 },
                 gridLines: {
@@ -143,11 +135,12 @@ function formatToUnits(number, precision) {
 }
 
 
-
-
-
-
-
+function resetCenter() {
+    let list = $('#results-list li')
+    if (list.length === 0) {
+        $('#asset-list').addClass("hidden");
+    }
+}
 
 function addData(label, data, color) {
     myChart.data.labels.push(label);
@@ -159,17 +152,18 @@ function addData(label, data, color) {
 function handleDeleteItemClicked() {
     $('#results-list').on('click', '#deleteAsset', event =>{
     deleteItemClicked();
+    resetCenter();
     });
 }
 
 function deleteItemClicked() {
     const id = $(event.target).closest('li').attr('id');
     const num = $(event.target).closest('li').find('p > span').attr('id');
-    const labelIndex = myChart.data.labels.findIndex(item => item === id)
+    const labelIndex = myChart.data.labels.findIndex(item => item === id);
     myChart.data.labels.splice(labelIndex, 1);
-    const valueIndex = myChart.data.datasets[0].data.findIndex(item => item === num)
+    const valueIndex = myChart.data.datasets[0].data.findIndex(item => item === num);
     myChart.data.datasets[0].data.splice(valueIndex, 1);
-    myChart.data.datasets[0].backgroundColor.splice(valueIndex, 1);
+    myChart.data.datasets[0].backgroundColor.splice(labelIndex, 1);
     myChart.update();
     $(event.target).closest('li').remove();
 }
@@ -180,11 +174,6 @@ function noSpaces() {
             return false;
     });
 };
-
-
-// function grabStockSymbol() {
-//     return $('#stock-search-term').val().toUpperCase();
-// }
 
 function watchForm() {
     noSpaces();
@@ -200,10 +189,11 @@ function watchForm() {
             getCryptoData(crypto);
         }
         $('#stock-search-term, #crypto-search-term').val("");
-        // $(`#asset-form`)[0].reset();
   });
 }
 
+
+
+
 $(watchForm);
 $(handleDeleteItemClicked)
-
