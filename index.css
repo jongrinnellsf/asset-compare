@@ -316,8 +316,8 @@ input[type=submit]:hover {
 
     input[type=submit] {
         cursor:pointer;
-        border-radius: 5px;
-        height: 30px;
+        border-radius: 2px;
+        height: 35px;
         width: 100%;
         outline: none;
         font-size: 10px;
