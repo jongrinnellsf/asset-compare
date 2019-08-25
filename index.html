@@ -14,12 +14,12 @@
     crossorigin="anonymous">
 </head>
 <body>
-    <div class="mobile">
-        <p class="logo"><a href="#asset-form">A|C</a></p>
+    <nav role="navigation" class="navFix">
+        <p class="logo"><a href="#home">A|C</a></p>
         <p class="appName">Asset Compare</p>
-    </div>
-    <header role="banner">
-        <h3>Check and compare market caps accross stocks and cryptoassets, in one chart</h3>
+    </nav>
+    <header role="banner" id="home">
+        <h3>Compare real time market caps accross stocks and cryptoassets, in one chart</h3>
     </header>
         <section class="asset">
             <form id="asset-form">
@@ -28,7 +28,7 @@
                     <span class="label">Type a stock ticker</span>
                     <span class="border"></span>
                 </label>
-                <label for="inp" class="inp c">
+                <label for="inp" class="inp crypto">
                     <input type="text" name="search-term" id="crypto-search-term" class="uppercase" placeholder="&nbsp;">
                     <span class="label">Type a crypto asset</span>
                     <span class="border"></span>
@@ -37,9 +37,9 @@
             </form>
         </section>
         <p id="js-error-message" class="error-message"></p>
-        <main role="results">
+        <section role="search results" class="container">
             <section class="all-results">
-                <div class= "d"> 
+                <div class= "chart"> 
                     <canvas id= "myChart" aria-label="chart for assets"></canvas>
                 </div>
                 <div id="asset-list" class="hidden list">
@@ -47,7 +47,7 @@
                     </ul>
                 </div>
             </section>
-        </main>
+        </section>
     <script src="index.js"></script>
 </body>
 </html>
