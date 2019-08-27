@@ -13,11 +13,11 @@ Cryptoassets are an emerging market class. As market cap is typically a good ind
 ## Screenshots
 Desktop View:
 
-![Desktop](screenshots/1.png)
+![Desktop](screenshots/desktop.png)
 
 Mobile View:
 
-![Mobile](screenshots/2.png)
+![Mobile](screenshots/mobile.png)
 
 ## Built With
 
