@@ -15,7 +15,7 @@ function displayStockResults(responseJson) {
     const price = responseJson.latestPrice;
     const name = responseJson.companyName;
         $('#results-list').append(
-        `<li id= "${symbol}"><img src="assets/c2.png" alt="image of line chart icon for stocks">
+        `<li id= "${symbol}" class="effect"><img src="assets/c2.png" alt="image of line chart icon for stocks">
         <p>${name} (${symbol})</p>
         <p class="price">Current price: $${price}</p>
         <p>Market cap: <span id="${marketCap}"> $${formatToUnits(marketCap, 2)}</span></p>
@@ -31,7 +31,7 @@ function displayCryptoResults(responseJson) {
     const price = responseJson.data.market_data.price_usd.toFixed(2);
     const name = responseJson.data.name
         $('#results-list').append(
-        `<li id = "${symbol}"><img src="assets/s2.png" alt="image of line chart icon for cryptoassets">
+        `<li id = "${symbol}" class="effect"><img src="assets/s2.png" alt="image of line chart icon for cryptoassets">
         <p>${name} (${symbol})</p>
         <p class="price">Current price: $${price}</p>
         <p>Market cap: <span id="${marketCap}"> $${formatToUnits(marketCap, 2)}</span></p>
@@ -118,7 +118,6 @@ const myChart = new Chart(ctx, {
     }
 });
 
-//format market cap #s (millions, billions, trillions, etc.)
 function formatToUnits(number, precision) {
     const abbrev = ['', 'K', 'M', 'B', 'T'];
     const unrangifiedOrder = Math.floor(Math.log10(Math.abs(number)) / 3)
@@ -144,22 +143,28 @@ function addData(label, data, color) {
 
 function handleDeleteItemClicked() {
     $('#results-list').on('click', '#deleteAsset', event =>{
-    deleteItemClicked();
-    resetCenter();
+    removeLi();
+    removeChartItem(myChart);
     });
 }
 
 //find the indexes of label, number and color stored in chart data, remove them, and delete the li
-function deleteItemClicked() {
+function removeChartItem(chart) {
     const id = $(event.target).closest('li').attr('id');
     const num = $(event.target).closest('li').find('p > span').attr('id');
-    const labelIndex = myChart.data.labels.findIndex(item => item === id);
-    myChart.data.labels.splice(labelIndex, 1);
-    const valueIndex = myChart.data.datasets[0].data.findIndex(item => item === num);
-    myChart.data.datasets[0].data.splice(valueIndex, 1);
-    myChart.data.datasets[0].backgroundColor.splice(labelIndex, 1);
-    myChart.update();
-    $(event.target).closest('li').remove();
+    const labelIndex = chart.data.labels.findIndex(item => item === id);
+    chart.data.labels.splice(labelIndex, 1);
+    const valueIndex = chart.data.datasets[0].data.findIndex(item => item === num);
+    chart.data.datasets[0].data.splice(valueIndex, 1);
+    chart.data.datasets[0].backgroundColor.splice(labelIndex, 1);
+    chart.update();
+}
+
+function removeLi() {
+    $(event.target).closest('li').removeClass('effect transition').fadeOut("slow",function(){
+        $(this).remove()
+        resetCenter();
+    })
 }
 
 function noSpaces() {
