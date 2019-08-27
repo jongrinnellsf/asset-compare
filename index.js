@@ -144,20 +144,20 @@ function addData(label, data, color) {
 function handleDeleteItemClicked() {
     $('#results-list').on('click', '#deleteAsset', event =>{
     removeLi();
-    removeChartItem(myChart);
+    removeChartItem();
     });
 }
 
 //find the indexes of label, number and color stored in chart data, remove them, and delete the li
-function removeChartItem(chart) {
+function removeChartItem() {
     const id = $(event.target).closest('li').attr('id');
     const num = $(event.target).closest('li').find('p > span').attr('id');
-    const labelIndex = chart.data.labels.findIndex(item => item === id);
-    chart.data.labels.splice(labelIndex, 1);
-    const valueIndex = chart.data.datasets[0].data.findIndex(item => item === num);
-    chart.data.datasets[0].data.splice(valueIndex, 1);
-    chart.data.datasets[0].backgroundColor.splice(labelIndex, 1);
-    chart.update();
+    const labelIndex = myChart.data.labels.findIndex(item => item === id);
+    myChart.data.labels.splice(labelIndex, 1);
+    const valueIndex = myChart.data.datasets[0].data.findIndex(item => item === num);
+    myChart.data.datasets[0].data.splice(valueIndex, 1);
+    myChart.data.datasets[0].backgroundColor.splice(labelIndex, 1);
+    myChart.update();
 }
 
 function removeLi() {
