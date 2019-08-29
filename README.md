@@ -8,7 +8,7 @@ Cryptoassets are an emerging market class. As market cap is typically a good ind
 
 ## Link: 
 
-- [Asset Compare](https://jongrinnellsf.github.io/api/)
+- [Asset Compare](https://jongrinnellsf.github.io/asset-compare/)
 
 ## Screenshots
 Desktop View:
