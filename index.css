@@ -3,6 +3,19 @@
     font-family: 'PT Sans', sans-serif;
 }
 
+html { 
+    background: url("assets/stocks-bg.jpeg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    z-index: 2;
+    opacity: 1;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -40,6 +53,7 @@ a {
 header {
     text-align: center;
     margin-top: 100px;
+    color: white;
 }
 
 input {
@@ -74,12 +88,14 @@ ul, li {
     list-style-position:inside;
     margin: 0;
     padding: 0;
-    background-color: white;
 }
 
 form {
     display: flex;
     flex-direction: column;
+    padding: 13px 13px;
+    background-color: white;
+    border-radius: 4px;
 }
 
 li {
@@ -93,11 +109,7 @@ li {
     height: 50px;
     border: 1px solid lightgray;
     border-radius: 5px;
-}
-
-li, canvas, .navFix {
-    -webkit-box-shadow: 2px 2px 6px 1px #D3D3D3; 
-    box-shadow: 2px 2px 6px 1px #D3D3D3;
+    background-color: white;
 }
 
 li p {
@@ -120,7 +132,7 @@ li p {
 }
 
 .container {
-    padding-top: 30px;
+    padding-top: 10px;
     display: flex;
     justify-content: center;
 }
@@ -145,6 +157,7 @@ canvas {
     border: 1px solid lightgray;
     padding: 3%;
     border-radius: 5px;
+    background-color: white;
 }
 
 input[type=submit] {
