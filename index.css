@@ -11,7 +11,6 @@ html {
     background-size: cover;
 }
 
-
 a {
     text-decoration: none;
     color: black;
@@ -84,6 +83,13 @@ ul, li {
     list-style-position:inside;
     margin: 0;
     padding: 0;
+    background-color: white;
+}
+
+ul {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 0% 0% 1% 1%;
 }
 
 form {
@@ -100,12 +106,9 @@ li {
     justify-content: space-evenly;
     align-items: center;
     font-size: 13px;
-    margin: 0% 0% 1% 2%;
-    padding: 0% 3%;
+    margin: 1% 1%;
+    padding: 0% 2%;
     height: 50px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    background-color: white;
 }
 
 li p {
@@ -270,6 +273,11 @@ input[type=submit]:hover {
         width: 100%;
     }
 
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
     .chart {
         padding-bottom: 2%;
     }
@@ -298,6 +306,11 @@ input[type=submit]:hover {
     .all-results {
         width: 270px;
         flex-direction: column;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
     }
 
     li {
